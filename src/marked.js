@@ -334,13 +334,26 @@ marked.Tokenizer = Tokenizer;
 marked.Slugger = Slugger;
 marked.parse = marked;
 
-module.exports = marked;
-module.exports.parse = marked;
-module.exports.Parser = Parser;
-module.exports.parser = Parser.parse;
-module.exports.Renderer = Renderer;
-module.exports.TextRenderer = TextRenderer;
-module.exports.Lexer = Lexer;
-module.exports.lexer = Lexer.lex;
-module.exports.Tokenizer = Tokenizer;
-module.exports.Slugger = Slugger;
+if (IS_ESM) {
+  module.exports = {
+    options: marked.options,
+    setOptions: marked.setOptions,
+    getDefaults: marked.getDefaults,
+    defaults: marked.defaults,
+    use: marked.use,
+    walkTokens: marked.walkTokens,
+    parseInline: marked.parseInline,
+    parse: marked,
+    Parser: Parser,
+    parser: Parser.parse,
+    Renderer: Renderer,
+    TextRenderer: TextRenderer,
+    Lexer: Lexer,
+    lexer: Lexer.lex,
+    Tokenizer: Tokenizer,
+    Slugger: Slugger,
+    default: marked
+  }
+} else {
+  module.exports = marked;  
+}
