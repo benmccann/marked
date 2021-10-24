@@ -12,9 +12,9 @@ let marked;
 /**
  * Load specs
  */
-export function load() {
+export async function load() {
   const dir = resolve(__dirname, './specs/commonmark');
-  const sections = loadFiles(dir);
+  const sections = await loadFiles(dir);
   let specs = [];
 
   for (const section in sections) {
@@ -29,7 +29,7 @@ export function load() {
  */
 export async function runBench(options) {
   options = options || {};
-  const specs = load();
+  const specs = await load();
 
   // Non-GFM, Non-pedantic
   marked.setOptions({
@@ -156,7 +156,7 @@ export async function bench(name, specs, engine) {
  */
 export async function time(options) {
   options = options || {};
-  const specs = load();
+  const specs = await load();
   if (options.marked) {
     marked.setOptions(options.marked);
   }

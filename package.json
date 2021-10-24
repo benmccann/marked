@@ -43,6 +43,8 @@
   ],
   "devDependencies": {
     "@babel/core": "^7.15.8",
+    "@babel/eslint-parser": "^7.15.8",
+    "@babel/plugin-syntax-top-level-await": "^7.14.5",
     "@babel/preset-env": "^7.15.8",
     "@markedjs/html-differ": "^3.0.4",
     "@rollup/plugin-babel": "^5.3.0",
@@ -92,6 +94,6 @@
     "preversion": "npm run build && (git diff --quiet || git commit -am build)"
   },
   "engines": {
-    "node": ">= 12"
+    "node": ">= 14"
   }
 }

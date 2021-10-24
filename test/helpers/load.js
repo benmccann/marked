@@ -68,7 +68,7 @@ export function outputCompletionTable(title, specs) {
 export function loadFiles(dir) {
   const files = fs.readdirSync(dir);
 
-  return files.reduce((obj, file) => {
+  return files.reduce(async(obj, file) => {
     const ext = path.extname(file);
     const name = path.basename(file, ext);
     const absFile = path.join(dir, file);
@@ -92,6 +92,16 @@ export function loadFiles(dir) {
         break;
       }
       case '.js':
+        try {
+          specs = Object.assign({}, await import(absFile));
+        } catch (err) {
+          console.log(`Error loading ${absFile}`);
+          throw err;
+        }
+        if (!Array.isArray(specs)) {
+          specs = [specs];
+        }
+        break;
       case '.json': {
         try {
           specs = JSON.parse(fs.readFileSync(absFile, 'utf8'));
@@ -126,5 +136,5 @@ export function loadFiles(dir) {
     }
 
     return obj;
-  }, {});
+  }, Promise.resolve({}));
 }

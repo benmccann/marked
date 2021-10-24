@@ -4,9 +4,9 @@ import { loadFiles, outputCompletionTable } from '../helpers/load.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
-function runSpecs(title, dir, showCompletionTable, options) {
+async function runSpecs(title, dir, showCompletionTable, options) {
   options = options || {};
-  const specs = loadFiles(resolve(__dirname, dir));
+  const specs = await loadFiles(resolve(__dirname, dir));
 
   if (showCompletionTable) {
     outputCompletionTable(title, specs);
@@ -50,9 +50,9 @@ function runSpecs(title, dir, showCompletionTable, options) {
   });
 }
 
-runSpecs('GFM', './gfm', true, { gfm: true, pedantic: false, headerIds: false });
-runSpecs('CommonMark', './commonmark', true, { gfm: false, pedantic: false, headerIds: false });
-runSpecs('Original', './original', false, { gfm: false, pedantic: true });
-runSpecs('New', './new');
-runSpecs('ReDOS', './redos');
-runSpecs('Security', './security', false, { silent: true }); // silent - do not show deprecation warning
+await runSpecs('GFM', './gfm', true, { gfm: true, pedantic: false, headerIds: false });
+await runSpecs('CommonMark', './commonmark', true, { gfm: false, pedantic: false, headerIds: false });
+await runSpecs('Original', './original', false, { gfm: false, pedantic: true });
+await runSpecs('New', './new');
+await runSpecs('ReDOS', './redos');
+await runSpecs('Security', './security', false, { silent: true }); // silent - do not show deprecation warning
